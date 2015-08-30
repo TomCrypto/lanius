@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="lanius",
-    version='0.1.0',
+    version='0.1.1',
     url='https://github.com/TomCrypto/lanius',
     license='MIT',
     description="Lanius Markdown Viewer",
@@ -25,6 +25,7 @@ setup(
     install_requires=[
         'markdown',
         'pygments',
+        'munch',
         'lxml',
     ],
     entry_points={
