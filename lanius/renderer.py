@@ -1,6 +1,7 @@
 from lxml.etree import Element
-from lanius.utils import *
+from lanius.utils import *  # noqa
 from lanius import ansi
+from six import u
 
 
 class Renderer:
@@ -17,15 +18,15 @@ class Renderer:
         """Renders a given HTML tree describing a markdown document."""
         self.links = []
 
-        rendered = '\n'.join(self.call(tree, self.width))
-        return rendered if self.strip else '\n' + rendered + '\n'
+        rendered = u('\n').join(self.call(tree, self.width))
+        return rendered if self.strip else u('\n') + rendered + u('\n')
 
     def div(self, elem, theme, width):
         """Div block element, used only as root element in markdown."""
         block, indent = [], ansi.length(theme.margin)
 
         for child in self.children(elem, self.BLOCK):
-            if child.tag not in ['ul', 'ol', 'br'] and len(block) != 0:
+            if child.tag not in [u('ul'), u('ol'), u('br')] and len(block) != 0:
                 block += ['']
 
             block += [line for line in self.call(child, width - indent)]
@@ -43,8 +44,8 @@ class Renderer:
         block, indent = [], ansi.length(theme.margin)
 
         for child in self.children(elem, self.BLOCK):
-            if child.tag not in ['ol', 'ul', 'br']:
-                block += ['']
+            if child.tag not in [u('ol'), u('ul'), u('br')]:
+                block += [u('')]
 
             block += [line for line in self.call(child, width - indent)]
 
@@ -57,8 +58,8 @@ class Renderer:
         """Unordered list, has complex margins. Contains <li> only."""
         block, indent = [], ansi.length(theme.margin.head)
 
-        for child in self.children(elem, {'li'}):
-            block += [''] + add_margin(self.call(child, width - indent),
+        for child in self.children(elem, {u('li')}):
+            block += [u('')] + add_margin(self.call(child, width - indent),
                                        theme.margin.head,
                                        theme.margin.tail(indent))
 
@@ -66,7 +67,7 @@ class Renderer:
 
     def ol(self, elem, theme, width):
         """Ordered list, has complex margins. Contains <li> only."""
-        block, children = [], self.children(elem, {'li'})
+        block, children = [], self.children(elem, {u('li')})
 
         margins = [theme.margin.head(t + 1) for t in range(len(children))]
         indent = maximum_of(margins, key=ansi.length)  # for long lists

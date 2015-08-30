@@ -28,6 +28,7 @@ setup(
         'pygments',
         'munch',
         'lxml',
+        'six',
     ],
     entry_points={
         'console_scripts': [

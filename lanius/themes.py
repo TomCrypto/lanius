@@ -1,6 +1,7 @@
 # coding: utf8
 
 from munch import munchify
+from six import u
 
 DefaultTheme = {
     'hr': munchify({
@@ -9,11 +10,11 @@ DefaultTheme = {
         'last': u'─',
     }),
     'div': munchify({
-        'margin': ' ',
+        'margin': u(' '),
         'links': '[{index}] \033[3;4m{href}\033[0m',
     }),
     'blockquote': munchify({
-        'margin': '\033[33;1m█\033[0m ',
+        'margin': u('\033[33;1m█\033[0m '),
     }),
     'plain': munchify({
         'render': lambda text: text,
@@ -60,24 +61,24 @@ DefaultTheme = {
     }),
     'ol': munchify({
         'margin': {
-            'head': lambda index: '{0}. '.format(index),
-            'tail': lambda length: ' ' * length,
+            'head': lambda index: u('{0}. ').format(index),
+            'tail': lambda length: u(' ') * length,
         },
     }),
     'ul': munchify({
         'margin': {
-            'head': u'• ',
-            'tail': lambda length: ' ' * length,
+            'head': u('• '),
+            'tail': lambda length: u(' ') * length,
         },
     }),
     'pre': munchify({
-        'margin': '\033[47;1m \033[0m ',
+        'margin': u('\033[47;1m \033[0m '),
     }),
     'li': munchify({
-        'margin': '',
+        'margin': u(''),
     }),
     'p': munchify({
-        'margin': '',
+        'margin': u(''),
     }),
 }
 
