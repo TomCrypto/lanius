@@ -1,10 +1,10 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 from setuptools import setup, find_packages
 
 setup(
     name="lanius",
-    version='0.1.1',
+    version='0.1.2',
     url='https://github.com/TomCrypto/lanius',
     license='MIT',
     description="Lanius Markdown Viewer",
@@ -14,6 +14,7 @@ setup(
     classifiers=[
         'Operating System :: Unix',
         'Programming Language :: Python',
+        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Environment :: Console',
         'Topic :: Text Processing',

@@ -7,6 +7,7 @@ import fileinput
 import lxml.html
 import markdown
 import argparse
+import sys
 import os
 
 
@@ -60,8 +61,9 @@ def run(argv=None):
         'markdown.extensions.smarty',
     ]
 
-    with fileinput.input(files=args.file) as f:
-        stream = markdown.markdown(''.join(f), exts)
+    f = fileinput.input(files=args.file)
+    stream = markdown.markdown(''.join(f), exts)
+    f.close()
 
     if stream.strip() == '':
         return  # no input
@@ -81,7 +83,10 @@ def run(argv=None):
                         args.strip, args.justify,
                         width - 1)
 
-    print(renderer.render(markup))
+    if sys.hexversion < 0x03000000:
+        print(renderer.render(markup).encode('utf-8'))
+    else:
+        print(renderer.render(markup))
 
 
 def main():
