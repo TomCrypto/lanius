@@ -1,3 +1,6 @@
+from __future__ import print_function
+
+
 from pygments.styles import STYLE_MAP
 from lanius.themes import THEME_LIST
 from lanius.renderer import Renderer
