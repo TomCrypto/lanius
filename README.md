@@ -17,7 +17,9 @@ as all modern UNIX terminal emulators -- and depends on some Python libraries:
 Lanius uses the `TerminalFormatter` or the `Terminal256Formatter` according to user preference;
 
  - The `munch` module, for accessing theme properties in the renderer more conveniently (e.g.
-`theme.margin` rather than `theme['margin']`).
+`theme.margin` rather than `theme['margin']`);
+
+ - The `six` module for helping with Python 2 and Python 3 unicode compatibility.
 
 ## Features
 
