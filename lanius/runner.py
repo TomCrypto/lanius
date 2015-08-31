@@ -15,7 +15,8 @@ import os
 
 
 def run(argv=None):
-    parser = argparse.ArgumentParser(description="Lanius Markdown Viewer.", version=version)
+    parser = argparse.ArgumentParser(description="Lanius Markdown Viewer.")
+    parser.add_argument('-v', '--version', action='version', version=version)
 
     default_arg = os.getenv('LANIUS_THEME', 'default')
     parser.add_argument('-t', '--theme', default=default_arg,
