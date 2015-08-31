@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 from pygments.styles import STYLE_MAP
 from lanius.themes import THEME_LIST
 from lanius.renderer import Renderer
@@ -7,7 +9,7 @@ import fileinput
 import lxml.html
 import markdown
 import argparse
-import sys
+import six
 import os
 
 
@@ -61,8 +63,9 @@ def run(argv=None):
         'markdown.extensions.smarty',
     ]
 
-    f = fileinput.input(files=args.file)
-    stream = markdown.markdown(''.join(f), exts)
+    f = fileinput.input(files=args.file, mode='rb')
+    text = six.u('').join([line.decode('utf-8') for line in f])
+    stream = markdown.markdown(text, exts)
     f.close()
 
     if stream.strip() == '':
@@ -83,10 +86,9 @@ def run(argv=None):
                         args.strip, args.justify,
                         width - 1)
 
-    if sys.hexversion < 0x03000000:
-        print(renderer.render(markup).encode('utf-8'))
-    else:
-        print(renderer.render(markup))
+    output = renderer.render(markup)
+
+    print(output if six.PY3 else output.encode('utf-8'))
 
 
 def main():
