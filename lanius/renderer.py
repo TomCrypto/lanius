@@ -82,25 +82,35 @@ class Renderer:
     def li(self, elem, theme, width):
         """List element; this element is a bit of a special case."""
         block, indent = [], ansi.length(theme.margin)
+        inline = u('')
+
+        # TODO: the `br` handling here is kind of a hack, must rework
 
         for child in self.children(elem):
             if child.tag in self.BLOCK:
+                if child.tag in ['br']:
+                    inline += u('\n')
+
+                if len(inline) > 0:
+                    block += wrap_text([inline], self.justify, width)
+                    inline = u('')
+
+
                 if child.tag not in ['ol', 'ul', 'br']:
                     block += ['']
 
-                block += [line for line in self.call(child, width - indent)]
+                if child.tag not in ['br']:
+                    block += self.call(child, width - indent)
             elif child.tag in self.INLINE:
-                if len(block) > 0:
-                    block[-1] += self.call(child)
-                else:
-                    block = [self.call(child)]
+                inline += self.call(child)
+
+        if len(inline) > 0:
+            block += wrap_text([inline], self.justify, width)
 
         if (len(block) > 0) and block[0].strip() == '':
             del block[0]
 
-        text = [line.lstrip('\n') for line in block]
-        wrapped = wrap_text(text, self.justify, width)
-        return [theme.margin + line for line in wrapped]
+        return [theme.margin + line.lstrip('\n') for line in block]
 
     def p(self, elem, theme, width):
         """Paragraph, which can only contain other inline elements."""
