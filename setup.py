@@ -4,7 +4,6 @@ from setuptools import setup, find_packages
 
 setup(
     name="lanius",
-    version='0.1.3',
     url='https://github.com/TomCrypto/lanius',
     license='MIT',
     description="Lanius Markdown Viewer",
@@ -35,4 +34,10 @@ setup(
             'lanius=lanius.runner:main'
         ],
     },
+    use_scm_version={
+        "write_to": "lanius/version.py",
+    },
+    setup_requires=[
+        "setuptools_scm"
+    ],
 )
