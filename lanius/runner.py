@@ -3,6 +3,7 @@ from __future__ import print_function
 from pygments.styles import STYLE_MAP
 from lanius.themes import THEME_LIST
 from lanius.renderer import Renderer
+from lanius.version import version
 
 import subprocess
 import fileinput
@@ -14,7 +15,7 @@ import os
 
 
 def run(argv=None):
-    parser = argparse.ArgumentParser(description="Lanius Markdown Viewer.")
+    parser = argparse.ArgumentParser(description="Lanius Markdown Viewer.", version=version)
 
     default_arg = os.getenv('LANIUS_THEME', 'default')
     parser.add_argument('-t', '--theme', default=default_arg,
